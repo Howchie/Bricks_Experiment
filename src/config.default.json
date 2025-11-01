@@ -1,0 +1,239 @@
+{
+  "_notes": {
+    "sampler_types": "Sampler specs accept type: fixed, uniform, normal, exponential, or list. Parameters feed into src/sampling.js helper functions.",
+    "trial_modes": "Set trial.mode to 'fixed_time' (uses trial.maxTimeSec) or 'max_bricks' (ends once cleared+dropped bricks reach bricks.maxBricksPerTrial after all active bricks resolve)."
+  },
+  "display": {
+    "canvasWidth": 1200,
+    "canvasHeight": 800,
+    "backgroundColor": "#0b1220",
+    "beltColor": "#2c3e50",
+    "beltHeight": 128,
+    "beltGap": 24,
+    "beltTexture": {
+      "enable": true,
+      "src": "assets/belt-texture.png",
+      "alpha": 1,
+      "scale": 1,
+      "scrollFactor": 1
+    },
+    "brickColor": "#f39c12",
+    "brickWidth": 80,
+    "brickHeight": 60,
+    "brickCornerRadius": 8,
+    "ui": {
+      "showHUD": true,
+      "hudFont": "16px \"Inter\", Arial, sans-serif",
+      "showTimer": true,
+      "showRemainingBlocks": true,
+      "showDroppedBlocks": true
+    }
+  },
+  "conveyors": {
+    "_comment": "lengthPx and speedPxPerSec use the sampler shapes listed in _notes.sampler_types.",
+    "nConveyors": 4,
+    "lengthPx": {
+      "_comment": "Conveyor length in pixels; sampled once per conveyor each trial.",
+      "type": "uniform",
+      "mu": 1000,
+      "sd": 80,
+      "min": 600,
+      "max": 1120
+    },
+    "speedPxPerSec": {
+      "_comment": "Pixels per second. Sampled once per conveyor at trial start.",
+      "type": "normal",
+      "mu": 220,
+      "sd": 40,
+      "min": 120,
+      "max": 340
+    }
+  },
+  "bricks": {
+    "_comment": "maxBricksPerTrial caps bricks spawned. With trial.mode set to 'max_bricks', the trial ends once this many bricks are cleared or dropped and none remain active.",
+    "completionMode": "single_click",
+    "completionParams": {
+      "clicks_required": 1
+    },
+    "colorCategories": [
+      {
+        "id": "amber",
+        "label": "Amber",
+        "color": "#f39c12"
+      },
+      {
+        "id": "teal",
+        "label": "Teal",
+        "color": "#1abc9c"
+      },
+      {
+        "id": "violet",
+        "label": "Violet",
+        "color": "#9b59b6"
+      },
+      {
+        "id": "azure",
+        "label": "Azure",
+        "color": "#3498db"
+      }
+    ],
+    "initialBricks": {
+      "type": "fixed",
+      "value": 3
+    },
+    "maxBricksPerTrial": 20,
+    "_comment_maxBricksPerTrial": "Safety limit on total bricks per trial (spawned bricks only).",
+    "spawn": {
+      "_comment": "Spawn timing uses sampler specs; ratePerSec influences Poisson-style spawn checks.",
+      "ratePerSec": {
+        "type": "fixed",
+        "value": 0.2
+      },
+      "interSpawnDist": {
+        "_comment": "Sampler (seconds) for the interval between spawn attempts.",
+        "type": "exponential",
+        "lambda": 0.1,
+        "min": 0.4,
+        "max": 6.0
+      },
+      "minSpacingPx": 40,
+      "byConveyor": true,
+      "maxActivePerConveyor": 3
+    }
+  },
+  "drt": {
+    "enable": true,
+    "stim_type": "visual",
+    "stim_visual_config": {
+      "shape": "square",
+      "color": "#ff3b30",
+      "size_px": 40,
+      "x": 600,
+      "y": 40
+    },
+    "key": " ",
+    "iti_sampler": {
+      "type": "uniform",
+      "min": 3000,
+      "max": 5000
+    },
+    "response_deadline_ms": 1500
+  },
+  "trial": {
+    "_comment": "mode can be 'fixed_time' (use maxTimeSec) or 'max_bricks' (end once the brick quota resolves).",
+    "mode": "fixed_time",
+    "maxTimeSec": 20,
+    "_comment_maxTimeSec": "Seconds per trial when mode is 'fixed_time'. Set null to disable the time cap.",
+    "seed": "random"
+  },
+  "experiment": {
+    "fullScreen": true,
+    "preloadAssets": [],
+    "showBetweenBlockSummary": true,
+    "allowBackOnInstructions": true,
+    "startTrialsOnSpace": true
+  },
+  "selfReport": {
+    "enable": true,
+    "likertScale": [
+      {
+        "value": 1,
+        "label": "Very Low Workload"
+      },
+      {
+        "value": 2,
+        "label": "Low"
+      },
+      {
+        "value": 3,
+        "label": "Somewhat Low"
+      },
+      {
+        "value": 4,
+        "label": "Moderate"
+      },
+      {
+        "value": 5,
+        "label": "Somewhat High"
+      },
+      {
+        "value": 6,
+        "label": "High"
+      },
+      {
+        "value": 7,
+        "label": "Very High Workload"
+      }
+    ],
+    "prompt": "Please rate your workload during the last trial."
+  },
+  "blocks": [
+    {
+      "label": "Practice",
+      "trials": 1,
+      "manipulation": "baseline",
+      "isPractice": true
+    },
+    {
+      "label": "Experimental Block 1",
+      "trials": 2,
+      "manipulation": "baseline"
+    },
+    {
+      "label": "Experimental Block 2",
+      "trials": 2,
+      "manipulation": "medium_rate"
+    }
+  ],
+  "manipulations": [
+    {
+      "id": "baseline",
+      "label": "Baseline",
+      "overrides": {}
+    },
+    {
+      "id": "medium_rate",
+      "label": "Medium Arrival Rate",
+      "overrides": {
+        "bricks": {
+          "spawn": {
+            "ratePerSec": {
+              "type": "fixed",
+              "value": 1
+            }
+          }
+        }
+      }
+    }
+  ],
+  "instructions": {
+    "pages": [
+      {
+        "title": "Welcome",
+        "html": "<p>Welcome to the Conveyor Belt Bricks task. You will see bricks moving along several conveyor belts.</p><p>Your goal is to prevent bricks from falling off the right edge by clicking them before they drop.</p>"
+      },
+      {
+        "title": "Dual Task",
+        "html": "<p>You will also perform a secondary Detection Response Task (DRT). Whenever a red square appears at the top of the screen, press the space bar as quickly as possible.</p><p>Try to maintain your performance on both tasks.</p>"
+      },
+      {
+        "title": "Scoring",
+        "html": "<p>We track cleared bricks, dropped bricks, and DRT reaction times. At the end of each trial you will rate your workload.</p><p>Press the space bar when you are ready to begin.</p>"
+      }
+    ]
+  },
+  "prolific": {
+    "enable": false,
+    "participantParam": "PROLIFIC_PID",
+    "sessionParam": "SESSION_ID",
+    "studyParam": "STUDY_ID"
+  },
+  "jatos": {
+    "enable": false,
+    "componentId": null
+  },
+  "data": {
+    "localSave": true,
+    "filePrefix": "brick_task"
+  }
+}

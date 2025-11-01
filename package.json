@@ -1,0 +1,23 @@
+{
+  "name": "conveyor-belt-bricks",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Prototype implementation of the conveyor-belt bricks cognitive workload task (jsPsych + PixiJS).",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@jspsych/plugin-html-button-response": "^2.0.0",
+    "@jspsych/plugin-fullscreen": "^2.0.0",
+    "@jspsych/plugin-instructions": "^2.0.0",
+    "@jspsych/plugin-survey-likert": "^2.0.0",
+    "jspsych": "^7.3.3",
+    "pixi.js": "^7.2.4"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

@@ -1,0 +1,82 @@
+/* Global styling for the experiment shell. Rendering of the actual task is
+ * handled by PixiJS, but consistent fonts and background help transitions. */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  background: #0b1220;
+  color: #f5f6fa;
+}
+
+#experiment-root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-screen {
+  text-align: center;
+}
+
+.loading-screen h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.loading-screen p {
+  font-size: 1.1rem;
+  color: #dcdde1;
+}
+
+.jspsych-display-element {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.jspsych-content {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.jspsych-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.instruction-content,
+.jspsych-html-button-response-stimulus,
+.jspsych-survey-likert .jspsych-survey-likert-statement {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.jspsych-instructions-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.jspsych-btn {
+  min-width: 140px;
+}
